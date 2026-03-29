@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <!-- Hace que la página se vea bien en celulares -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juguería Sofi 🍹</title>
+
+  <!-- Fuentes de Google: Fraunces (títulos elegantes) y DM Sans (texto general) -->
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Enlace a nuestro archivo de estilos CSS (mismo nivel que este HTML) -->
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════════════
+       CABECERA (HEADER)
+       Siempre visible arriba, tiene el logo y el botón del carrito
+  ══════════════════════════════════════════════════ -->
+  <header>
+    <!-- Logo del negocio: "Juguería" en crema y "Sofi" en verde claro -->
+    <div class="logo">Juguería <span>Sofi</span></div>
+
+    <!-- Botón para abrir el carrito. onclick llama a la función en app.js -->
+    <button class="carrito-btn" onclick="abrirCarrito()">
+      🛒 Carrito
+      <!-- Badge: muestra cuántos productos hay en el carrito (se actualiza con JS) -->
+      <span class="badge" id="badge">0</span>
+    </button>
+  </header>
+
+
+  <!-- ══════════════════════════════════════════════════
+       SECCIÓN HERO (PORTADA)
+       Banner verde con el mensaje principal de bienvenida
+  ══════════════════════════════════════════════════ -->
+  <div class="hero">
+    <h1>Jugos <em>frescos</em><br>a tu puerta</h1>
+    <p>Elige tus favoritos, arma tu pedido y te lo enviamos a casa</p>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════
+       MENÚ PRINCIPAL
+       Tres secciones de productos: naturales, batidos y especiales.
+       Los productos se insertan aquí automáticamente con JavaScript.
+  ══════════════════════════════════════════════════ -->
+  <main>
+
+    <!-- Sección 1: Jugos naturales -->
+    <div class="seccion-titulo">🍃 Jugos naturales</div>
+    <!-- Aquí JavaScript va a insertar las tarjetas de jugos naturales -->
+    <div class="grid-productos" id="lista-naturales"></div>
+
+    <!-- Sección 2: Batidos y cremosos -->
+    <div class="seccion-titulo">🥤 Batidos y cremosos</div>
+    <!-- Aquí JavaScript va a insertar las tarjetas de batidos -->
+    <div class="grid-productos" id="lista-batidos"></div>
+
+    <!-- Sección 3: Especiales Sofi -->
+    <div class="seccion-titulo">✨ Especiales Sofi</div>
+    <!-- Aquí JavaScript va a insertar las tarjetas de especiales -->
+    <div class="grid-productos" id="lista-especiales"></div>
+
+  </main>
+
+
+  <!-- ══════════════════════════════════════════════════
+       FONDO OSCURO (OVERLAY)
+       Capa semitransparente que aparece detrás del carrito.
+       Al hacer clic en ella se cierra el panel.
+  ══════════════════════════════════════════════════ -->
+  <div class="overlay" id="overlay" onclick="cerrarCarrito()"></div>
+
+
+  <!-- ══════════════════════════════════════════════════
+       PANEL DEL CARRITO
+       Cajón que sube desde abajo cuando el usuario abre el carrito.
+       Contiene: lista de productos, formulario y botón de WhatsApp.
+  ══════════════════════════════════════════════════ -->
+  <div class="panel-carrito" id="panel">
+
+    <!-- Barra y título del panel -->
+    <div class="panel-header">
+      <!-- Barra visual para indicar que se puede deslizar -->
+      <div class="panel-handle"></div>
+      <div class="panel-titulo-row">
+        <div class="panel-titulo">Tu pedido</div>
+        <!-- Botón X para cerrar el panel -->
+        <button class="btn-cerrar-panel" onclick="cerrarCarrito()" title="Cerrar">✕</button>
+      </div>
+    </div>
+
+    <!-- Aquí JavaScript pinta los ítems del carrito dinámicamente -->
+    <div id="contenido-carrito">
+      <!-- Mensaje inicial cuando el carrito está vacío -->
+      <div class="carrito-vacio">
+        <div style="font-size:2.5rem">🛒</div>
+        <p>Tu carrito está vacío.<br>Agrega algo del menú.</p>
+      </div>
+    </div>
+
+    <!-- Sección del formulario y total (oculta hasta que haya productos) -->
+    <div id="seccion-pedido" style="display:none">
+
+      <!-- Muestra el total acumulado del pedido -->
+      <div class="resumen-total">
+        <span>Total</span>
+        <span class="monto" id="total-display">$0</span>
+      </div>
+
+      <!-- Formulario de datos del pedido -->
+      <div class="formulario">
+
+        <!-- Campo: dirección de entrega (obligatorio) -->
+        <label>Dirección de entrega *</label>
+        <input type="text" id="campo-direccion" placeholder="Calle, barrio, referencia...">
+        <!-- Mensaje de error que aparece si el usuario no llena la dirección -->
+        <span class="msg-error" id="error-direccion">Por favor ingresa la dirección de entrega</span>
+
+        <!-- Campo: método de pago (tarjetas visuales tipo radio button) -->
+        <label>Método de pago *</label>
+        <div class="opciones-pago">
+
+          <!-- Opción Nequi (seleccionada por defecto) -->
+          <label class="opcion-pago">
+            <input type="radio" name="metodo_pago" value="Nequi" checked>
+            <span class="opcion-pago-box">
+              <span class="opcion-pago-icono">📱</span>
+              <span class="opcion-pago-nombre">Nequi</span>
+            </span>
+          </label>
+
+          <!-- Opción Bancolombia -->
+          <label class="opcion-pago">
+            <input type="radio" name="metodo_pago" value="Bancolombia">
+            <span class="opcion-pago-box">
+              <span class="opcion-pago-icono">🏦</span>
+              <span class="opcion-pago-nombre">Bancolombia</span>
+            </span>
+          </label>
+
+        </div>
+
+        <!-- Información de pago Nequi (visible por defecto) -->
+        <div class="info-pago" id="info-pago-nequi">
+          <strong>📱 Pago por Nequi</strong>
+          Al confirmar por WhatsApp te enviamos el número de Nequi para transferir
+        </div>
+
+        <!-- Información de pago Bancolombia (oculta por defecto) -->
+        <div class="info-pago" id="info-pago-bancolombia" style="display:none">
+          <strong>🏦 Pago por Bancolombia</strong>
+          Al confirmar por WhatsApp te enviamos los datos de la cuenta Bancolombia
+        </div>
+
+        <!-- Campo: notas opcionales del pedido -->
+        <label>Notas del pedido <span style="font-weight:400;color:#999">(opcional)</span></label>
+        <textarea id="campo-notas" placeholder="Ej: sin azúcar, más hielo, combinación especial..."></textarea>
+
+      </div>
+
+      <!-- Botón final: arma el mensaje y abre WhatsApp -->
+      <button class="btn-whatsapp" id="btn-enviar" onclick="enviarPedido()">
+        <!-- Ícono SVG de WhatsApp (dibujado con código, no es imagen) -->
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.555 4.118 1.528 5.852L0 24l6.335-1.506A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.647-.491-5.177-1.348l-.372-.218-3.758.893.952-3.655-.238-.386A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+        </svg>
+        Enviar pedido por WhatsApp
+      </button>
+
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════
+       TOAST (NOTIFICACIÓN)
+       Pequeña pastilla verde que aparece abajo confirmando el envío.
+       El texto lo pone JavaScript cuando se envía el pedido.
+  ══════════════════════════════════════════════════ -->
+  <div class="toast" id="toast"></div>
+
+
+  <!-- ══════════════════════════════════════════════════
+       ENLACE AL JAVASCRIPT
+       Se pone al FINAL del body para que el HTML cargue primero
+       y luego el script pueda encontrar todos los elementos.
+  ══════════════════════════════════════════════════ -->
+  <script src="app.js"></script>
+
+</body>
+</html>

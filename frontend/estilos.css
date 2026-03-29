@@ -1,0 +1,698 @@
+/* ================================================================
+   JUGUERÍA SOFI — estilos.css
+   Archivo de estilos separado del HTML.
+   Cada sección está claramente identificada con comentarios.
+================================================================ */
+
+
+/* ────────────────────────────────────────────────────────────────
+   VARIABLES GLOBALES (Paleta de colores y valores reutilizables)
+   Se declaran en :root para poder usarlas en todo el archivo.
+   Para cambiar un color solo lo cambias aquí y se aplica en todo.
+──────────────────────────────────────────────────────────────── */
+:root {
+  --verde:        #1a6b3c;  /* Color principal del negocio */
+  --verde-claro:  #d4f0e0;  /* Verde suave para fondos y hover */
+  --naranja:      #f4721e;  /* Color de acento para botones */
+  --crema:        #fdf8f0;  /* Color de fondo general de la página */
+  --texto:        #1c1c1c;  /* Color del texto principal */
+  --texto-suave:  #5a5a5a;  /* Color del texto secundario (descripciones) */
+  --borde:        #e8e0d4;  /* Color de los bordes de tarjetas */
+  --blanco:       #ffffff;  /* Blanco puro para fondos de tarjetas */
+  --whatsapp:     #25d366;  /* Verde oficial de WhatsApp */
+}
+
+
+/* ────────────────────────────────────────────────────────────────
+   RESET GENERAL
+   Elimina márgenes y padding que traen los navegadores por defecto.
+   box-sizing: border-box hace que el padding no agrande los elementos.
+──────────────────────────────────────────────────────────────── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilo base del cuerpo de la página */
+body {
+  font-family: 'DM Sans', sans-serif; /* Fuente principal */
+  background: var(--crema);           /* Fondo crema suave */
+  color: var(--texto);                /* Color de texto por defecto */
+  min-height: 100vh;                  /* Que ocupe mínimo toda la pantalla */
+}
+
+
+/* ────────────────────────────────────────────────────────────────
+   CABECERA (HEADER)
+   Barra fija en la parte superior. Siempre visible al hacer scroll.
+──────────────────────────────────────────────────────────────── */
+header {
+  background: var(--verde);
+  padding: 1.2rem 1.5rem;
+  display: flex;                  /* Elementos en fila */
+  justify-content: space-between; /* Logo a la izquierda, botón a la derecha */
+  align-items: center;            /* Alineados verticalmente al centro */
+  position: sticky;               /* Se queda fija al hacer scroll */
+  top: 0;                         /* Pegada al borde superior */
+  z-index: 100;                   /* Por encima de otros elementos */
+}
+
+/* Logo del negocio */
+.logo {
+  font-family: 'Fraunces', serif;
+  font-size: 1.6rem;
+  color: var(--crema);
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+/* La palabra "Sofi" en verde claro dentro del logo */
+.logo span {
+  color: #7de8a8;
+}
+
+/* Botón "🛒 Carrito" en la cabecera */
+.carrito-btn {
+  background: var(--naranja);
+  border: none;
+  color: white;
+  padding: 0.55rem 1.1rem;
+  border-radius: 50px;           /* Bordes completamente redondeados */
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;                      /* Espacio entre el ícono y el texto */
+  transition: transform 0.15s, background 0.15s; /* Animación suave al hover */
+}
+
+/* Efecto al pasar el mouse por el botón del carrito */
+.carrito-btn:hover {
+  background: #d45f0e;
+  transform: scale(1.03);        /* Se agranda ligeramente */
+}
+
+/* Badge (número rojo/naranja) que muestra cuántos productos hay en el carrito */
+.badge {
+  background: white;
+  color: var(--naranja);
+  border-radius: 50%;            /* Círculo perfecto */
+  width: 20px;
+  height: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.18s;   /* Para la animación de rebote al agregar */
+}
+
+
+/* ────────────────────────────────────────────────────────────────
+   SECCIÓN HERO (PORTADA / BANNER)
+   El banner verde grande de bienvenida con el título de la página.
+──────────────────────────────────────────────────────────────── */
+.hero {
+  background: var(--verde);
+  padding: 3rem 1.5rem 4rem;
+  text-align: center;
+  position: relative;            /* Necesario para el ::after */
+  overflow: hidden;
+}
+
+/* Curva blanca decorativa en la parte inferior del hero */
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: var(--crema);
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0; /* Efecto de ola curva */
+}
+
+/* Título grande del hero */
+.hero h1 {
+  font-family: 'Fraunces', serif;
+  font-size: 2.4rem;
+  color: var(--crema);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 0.6rem;
+}
+
+/* La palabra en cursiva dentro del título (ej: "frescos") */
+.hero h1 em {
+  color: #7de8a8;
+  font-style: italic;
+}
+
+/* Subtítulo del hero */
+.hero p {
+  color: #a8d8be;
+  font-size: 1rem;
+  max-width: 340px;
+  margin: 0 auto;                /* Centrado horizontalmente */
+}
+
+
+/* ────────────────────────────────────────────────────────────────
+   SECCIÓN MAIN (CONTENIDO PRINCIPAL / MENÚ)
+   Contenedor de las 3 secciones de productos.
+──────────────────────────────────────────────────────────────── */
+main {
+  padding: 1.5rem 1rem 6rem;    /* Espaciado interior (arriba, lados, abajo) */
+  max-width: 680px;             /* Ancho máximo para que no quede muy ancho en desktop */
+  margin: 0 auto;               /* Centrado en pantallas grandes */
+}
+
+/* Título de cada sección del menú (Jugos naturales, Batidos, etc.) */
+.seccion-titulo {
+  font-family: 'Fraunces', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--verde);
+  margin: 1.5rem 0 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Línea horizontal decorativa que se extiende después del título de sección */
+.seccion-titulo::after {
+  content: '';
+  flex: 1;                      /* Ocupa el espacio restante */
+  height: 1px;
+  background: var(--borde);
+}
+
+/* Cuadrícula de 2 columnas para mostrar los productos */
+.grid-productos {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas de igual ancho */
+  gap: 12px;                       /* Espacio entre tarjetas */
+}
+
+/* En pantallas muy pequeñas (menos de 400px), se muestra en una columna */
+@media (max-width: 400px) {
+  .grid-productos {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ────────────────────────────────────────────────────────────────
+   TARJETAS DE PRODUCTO
+   Cada jugo se muestra en una tarjeta blanca con borde redondeado.
+──────────────────────────────────────────────────────────────── */
+.tarjeta {
+  background: var(--blanco);
+  border: 1.5px solid var(--borde);
+  border-radius: 16px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;        /* Elementos apilados verticalmente */
+  gap: 6px;
+  transition: border-color 0.2s, box-shadow 0.2s; /* Animación suave */
+}
+
+/* Efecto al pasar el mouse sobre una tarjeta */
+.tarjeta:hover {
+  border-color: var(--verde);
+  box-shadow: 0 2px 12px rgba(26, 107, 60, 0.1); /* Sombra verde sutil */
+}
+
+/* Emoji grande del producto (🍊, 🥭, etc.) */
+.emoji-prod {
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+/* Nombre del producto */
+.nombre-prod {
+  font-family: 'Fraunces', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--texto);
+  line-height: 1.2;
+}
+
+/* Descripción corta del producto */
+.desc-prod {
+  font-size: 0.78rem;
+  color: var(--texto-suave);
+  line-height: 1.4;
+}
+
+/* Fila inferior de la tarjeta: precio a la izquierda, botón + a la derecha */
+.pie-tarjeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4px;
+}
+
+/* Precio del producto */
+.precio {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--verde);
+}
+
+/* Botón circular "+" para agregar al carrito */
+.btn-agregar {
+  background: var(--verde);
+  color: white;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;            /* Círculo perfecto */
+  font-size: 1.3rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, transform 0.1s;
+  flex-shrink: 0;               /* Que no se encoja */
+}
+
+/* Efecto al pasar el mouse sobre el botón + */
+.btn-agregar:hover {
+  background: #145530;
+  transform: scale(1.1);
+}
+
+
+/* ────────────────────────────────────────────────────────────────
+   OVERLAY (FONDO OSCURO)
+   Capa semitransparente que aparece detrás del panel del carrito.
+──────────────────────────────────────────────────────────────── */
+.overlay {
+  display: none;                 /* Oculto por defecto */
+  position: fixed;               /* Ocupa toda la pantalla */
+  inset: 0;                      /* top:0, right:0, bottom:0, left:0 */
+  background: rgba(0, 0, 0, 0.45); /* Negro semitransparente */
+  z-index: 200;                  /* Por encima del contenido pero bajo el panel */
+}
+
+/* Cuando el JS agrega la clase "activo", el overlay se muestra */
+.overlay.activo {
+  display: block;
+}
+
+
+/* ────────────────────────────────────────────────────────────────
+   PANEL DEL CARRITO
+   Cajón que sube desde la parte inferior de la pantalla.
+   Contiene los productos, el formulario y el botón de WhatsApp.
+──────────────────────────────────────────────────────────────── */
+.panel-carrito {
+  position: fixed;               /* Fijo en la pantalla */
+  bottom: 0;                     /* Pegado al borde inferior */
+  left: 0;
+  right: 0;
+  background: var(--blanco);
+  border-radius: 24px 24px 0 0;  /* Solo las esquinas superiores redondeadas */
+  padding: 1.2rem 1.25rem 1.5rem;
+  z-index: 201;                  /* Por encima del overlay */
+  max-height: 90vh;              /* Máximo el 90% de la pantalla */
+  overflow-y: auto;              /* Scroll interno si el contenido es largo */
+  transform: translateY(100%);   /* Empieza FUERA de la pantalla (abajo) */
+  transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1); /* Animación fluida */
+}
+
+/* Cuando el JS agrega la clase "activo", el panel sube a la vista */
+.panel-carrito.activo {
+  transform: translateY(0);
+}
+
+/* Contenedor del encabezado del panel */
+.panel-header {
+  margin-bottom: 0.8rem;
+}
+
+/* Barra gris decorativa en la parte superior del panel (para indicar que se puede deslizar) */
+.panel-handle {
+  width: 40px;
+  height: 4px;
+  background: var(--borde);
+  border-radius: 2px;
+  margin: 0 auto 0.9rem;         /* Centrado horizontalmente */
+}
+
+/* Fila con el título y el botón de cierre */
+.panel-titulo-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Título "Tu pedido" del panel */
+.panel-titulo {
+  font-family: 'Fraunces', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--verde);
+}
+
+/* Botón X para cerrar el panel */
+.btn-cerrar-panel {
+  background: var(--borde);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--texto-suave);
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+
+.btn-cerrar-panel:hover {
+  background: #d0c8bc;
+}
+
+
+/* ────────────────────────────────────────────────────────────────
+   ÍTEMS DEL CARRITO
+   Cada producto que el usuario agrega aparece como una fila.
+──────────────────────────────────────────────────────────────── */
+
+/* Fila de cada ítem en el carrito */
+.item-carrito {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--borde); /* Línea separadora entre ítems */
+}
+
+/* Emoji del producto dentro del carrito */
+.item-emoji {
+  font-size: 1.5rem;
+}
+
+/* Columna de información (nombre y precio) */
+.item-info {
+  flex: 1;                       /* Ocupa el espacio disponible */
+}
+
+.item-nombre {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.item-precio {
+  font-size: 0.82rem;
+  color: var(--texto-suave);
+}
+
+/* Controles de cantidad: botón −, número, botón + */
+.controles-cant {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Botones de más y menos cantidad */
+.btn-cant {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid var(--borde);
+  background: transparent;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--texto);
+  transition: background 0.15s;
+}
+
+.btn-cant:hover {
+  background: var(--verde-claro);
+}
+
+/* Número de cantidad actual */
+.cant-num {
+  font-size: 0.9rem;
+  font-weight: 500;
+  min-width: 18px;
+  text-align: center;
+}
+
+/* Mensaje cuando el carrito está vacío */
+.carrito-vacio {
+  text-align: center;
+  padding: 2rem 0;
+  color: var(--texto-suave);
+}
+
+.carrito-vacio p {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
+
+/* ────────────────────────────────────────────────────────────────
+   FORMULARIO DEL PEDIDO
+   Campos para que el cliente llene dirección, pago y notas.
+──────────────────────────────────────────────────────────────── */
+.formulario {
+  margin-top: 1.2rem;
+}
+
+/* Etiquetas de los campos */
+.formulario label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--texto-suave);
+  margin-bottom: 4px;
+  margin-top: 14px;
+}
+
+/* Estilo base para input, textarea y select */
+.formulario input,
+.formulario textarea,
+.formulario select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1.5px solid var(--borde);
+  border-radius: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  background: var(--crema);
+  color: var(--texto);
+  outline: none;
+  transition: border-color 0.2s; /* El borde cambia de color al enfocar */
+}
+
+/* Borde verde cuando el campo está activo (el usuario está escribiendo) */
+.formulario input:focus,
+.formulario textarea:focus,
+.formulario select:focus {
+  border-color: var(--verde);
+}
+
+/* El textarea puede redimensionarse solo verticalmente */
+.formulario textarea {
+  resize: vertical;
+  min-height: 70px;
+}
+
+
+/* ────────────────────────────────────────────────────────────────
+   OPCIONES DE MÉTODO DE PAGO
+   Tarjetas visuales (Nequi / Bancolombia) que actúan como radio buttons.
+──────────────────────────────────────────────────────────────── */
+
+/* Contenedor de las dos opciones en fila */
+.opciones-pago {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.opcion-pago {
+  cursor: pointer;
+}
+
+/* Ocultar el radio button nativo del navegador (lo reemplazamos visualmente) */
+.opcion-pago input[type="radio"] {
+  display: none;
+}
+
+/* La tarjeta visual de cada opción de pago */
+.opcion-pago-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  border: 2px solid var(--borde);
+  border-radius: 12px;
+  padding: 0.75rem 0.5rem;
+  transition: border-color 0.2s, background 0.2s;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--texto-suave);
+}
+
+/* Cuando el radio está seleccionado, la tarjeta se pone verde */
+.opcion-pago input:checked + .opcion-pago-box {
+  border-color: var(--verde);
+  background: var(--verde-claro);
+  color: var(--verde);
+}
+
+/* Emoji grande dentro de la tarjeta de pago */
+.opcion-pago-icono {
+  font-size: 1.4rem;
+}
+
+
+/* ────────────────────────────────────────────────────────────────
+   CUADRO INFORMATIVO DE PAGO
+   Recuadro verde que explica cómo funciona el pago según la opción elegida.
+──────────────────────────────────────────────────────────────── */
+.info-pago {
+  background: #e8f5ee;
+  border: 1.5px solid #a8d8be;
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  margin-top: 0.8rem;
+  font-size: 0.82rem;
+  color: #1a6b3c;
+  line-height: 1.6;
+}
+
+.info-pago strong {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 0.88rem;
+}
+
+
+/* ────────────────────────────────────────────────────────────────
+   RESUMEN DEL TOTAL
+   Fila con la etiqueta "Total" y el monto acumulado.
+──────────────────────────────────────────────────────────────── */
+.resumen-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--texto);
+}
+
+/* El monto en verde y grande */
+.resumen-total .monto {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--verde);
+}
+
+
+/* ────────────────────────────────────────────────────────────────
+   BOTÓN DE WHATSAPP
+   Botón grande verde que envía el pedido a WhatsApp.
+──────────────────────────────────────────────────────────────── */
+.btn-whatsapp {
+  width: 100%;
+  background: var(--whatsapp);
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 1rem;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.btn-whatsapp:hover {
+  background: #1da851;
+  transform: scale(1.01);
+}
+
+/* Estado deshabilitado (cuando no hay productos en el carrito) */
+.btn-whatsapp:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Tamaño del ícono SVG de WhatsApp dentro del botón */
+.btn-whatsapp svg {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;               /* Que el ícono no se encoja */
+}
+
+
+/* ────────────────────────────────────────────────────────────────
+   VALIDACIÓN DE FORMULARIO
+   Estilos para mostrar errores cuando el usuario no llena campos.
+──────────────────────────────────────────────────────────────── */
+
+/* Borde rojo en el campo cuando hay un error */
+.campo-error {
+  border-color: #e74c3c !important; /* !important para sobreescribir el :focus */
+}
+
+/* Texto de error debajo del campo (oculto por defecto) */
+.msg-error {
+  font-size: 0.78rem;
+  color: #e74c3c;
+  margin-top: 4px;
+  display: none;               /* Oculto hasta que JS le agregue la clase "visible" */
+}
+
+/* Cuando JS agrega la clase "visible", el error se muestra */
+.msg-error.visible {
+  display: block;
+}
+
+
+/* ────────────────────────────────────────────────────────────────
+   TOAST (NOTIFICACIÓN FLOTANTE)
+   Pequeña pastilla verde que aparece desde abajo confirmando el envío.
+──────────────────────────────────────────────────────────────── */
+.toast {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px); /* Empieza fuera de la pantalla */
+  background: var(--verde);
+  color: white;
+  padding: 0.7rem 1.4rem;
+  border-radius: 50px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  z-index: 999;                /* Por encima de todo */
+  transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+  white-space: nowrap;         /* El texto no se parte en varias líneas */
+}
+
+/* Cuando JS agrega la clase "show", el toast sube y se ve */
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+}
